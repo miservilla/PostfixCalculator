@@ -1,5 +1,3 @@
-import javafx.geometry.Pos;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +7,7 @@ import java.util.Map;
  * @version date 2017-02-21
  */
 public class PostfixCalculator {
-    private Stack<Double> operandStack = new DoubleStack();
+    private static Stack<Double> operandStack = new DoubleStack();
     private Map<String, Operator> operatorMap = new HashMap<>();
 
     public PostfixCalculator() {
@@ -29,17 +27,26 @@ public class PostfixCalculator {
         operandStack.push(operand);
     }
     public void evalOperator(String operator) {
-
+        operatorMap.get(operator);
+        if (operator.equals("+")) {
+            double a = operandStack.pop();
+            double b = operandStack.pop();
+            operandStack.push(a + b);
+            System.out.println(operandStack.peek());
+        }
     }
 
     public static class Add implements Operator {
+
         @Override
         public int numArgs() {
-            return 0;
+            return 2;
         }
 
         @Override
         public double eval(List<Double> args) {
+//            double a = PostfixCalculator.operandStack.pop();
+//            double b = PostfixCalculator.operandStack.pop();
             return 0;
         }
     }
@@ -47,7 +54,7 @@ public class PostfixCalculator {
 
         @Override
         public int numArgs() {
-            return 0;
+            return 2;
         }
 
         @Override
@@ -59,7 +66,7 @@ public class PostfixCalculator {
 
         @Override
         public int numArgs() {
-            return 0;
+            return 2;
         }
 
         @Override
@@ -71,7 +78,7 @@ public class PostfixCalculator {
 
         @Override
         public int numArgs() {
-            return 0;
+            return 2;
         }
 
         @Override
@@ -83,7 +90,7 @@ public class PostfixCalculator {
 
         @Override
         public int numArgs() {
-            return 0;
+            return 1;
         }
 
         @Override
