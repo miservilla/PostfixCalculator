@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class PostfixCalculator {
     private Stack<Double> operandStack = new DoubleStack();
-    private Map<String, Operator> operatorMap;
+    private Map<String, Operator> operatorMap = new HashMap<>();
 
     public PostfixCalculator() {
         operatorMap.put("+", new Add());
