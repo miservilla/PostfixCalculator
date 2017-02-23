@@ -1,3 +1,5 @@
+import javafx.geometry.Pos;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +13,16 @@ public class PostfixCalculator {
     private Map<String, Operator> operatorMap;
 
     public PostfixCalculator() {
-        operatorMap.put("+", Add);
-//        operatorMap.put("add", );
-//        operatorMap.put("-", );
-//        operatorMap.put("sub", );
-//        operatorMap.put("*", );
-//        operatorMap.put("mult", );
-//        operatorMap.put("/", );
-//        operatorMap.put("div", );
-//        operatorMap.put("=", );
-//        operatorMap.put("print", );
+        operatorMap.put("+", new Add());
+        operatorMap.put("add", new Add());
+        operatorMap.put("-", new Subtract());
+        operatorMap.put("sub", new Subtract());
+        operatorMap.put("*", new Multiply());
+        operatorMap.put("mult", new Multiply());
+        operatorMap.put("/", new Divide());
+        operatorMap.put("div", new Divide());
+        operatorMap.put("=", new Print());
+        operatorMap.put("print", new Print());
     }
 
     public void storeOperand(double operand) {
@@ -89,9 +91,4 @@ public class PostfixCalculator {
             return 0;
         }
     }
-
-
-
-
-
 }
