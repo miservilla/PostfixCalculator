@@ -13,6 +13,8 @@ public class CalcTestIntellij {
 
         // Make a new calculator
         PostfixCalculator calc = new PostfixCalculator();
+        calc.a = 1;
+
 
         // keep reading tokens until we run out.
         while(scanner.hasNext()) {
