@@ -26,11 +26,15 @@ public class PostfixCalculator {
     }
     public void evalOperator(String operator) {
         List<Double> tmpOperands = new ArrayList<>();
-        Operator testOp = operatorMap.get(operator);
-        for (int i = 0; i < testOp.numArgs(); i++) {
-            tmpOperands.add(i, operandStack.pop());
+        if (operatorMap.containsKey(operator)) {
+            Operator testOp = operatorMap.get(operator);
+            for (int i = 0; i < testOp.numArgs(); i++) {
+                tmpOperands.add(i, operandStack.pop());
+            }
+            operandStack.push(testOp.eval(tmpOperands));
+        } else if (!(operatorMap.containsKey(operator))) {
+            System.out.println("I do not understand your input :(|)");
         }
-        operandStack.push(testOp.eval(tmpOperands));
     }
 
     public class Add implements Operator {
@@ -78,6 +82,9 @@ public class PostfixCalculator {
 
         @Override
         public double eval(List<Double> args) {
+            if (args.get(0) == 0) {
+                System.out.println("Attempting to divide by 0!");
+            }
             return (args.get(1) / args.get(0));
         }
     }
