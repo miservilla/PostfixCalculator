@@ -1,13 +1,11 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Michael Servilla
  * @version date 2017-02-21
  */
 public class PostfixCalculator {
-    private static Stack<Double> operandStack = new DoubleStack();
+    private Stack<Double> operandStack = new DoubleStack();
     private Map<String, Operator> operatorMap = new HashMap<>();
 
     public PostfixCalculator() {
@@ -27,16 +25,15 @@ public class PostfixCalculator {
         operandStack.push(operand);
     }
     public void evalOperator(String operator) {
-        operatorMap.get(operator);
-        if (operator.equals("+")) {
-            double a = operandStack.pop();
-            double b = operandStack.pop();
-            operandStack.push(a + b);
-            System.out.println(operandStack.peek());
+        List<Double> tmpOperands = new ArrayList<>();
+        Operator testOp = operatorMap.get(operator);
+        for (int i = 0; i < testOp.numArgs(); i++) {
+            tmpOperands.add(i, operandStack.pop());
         }
+        operandStack.push(testOp.eval(tmpOperands));
     }
 
-    public static class Add implements Operator {
+    public class Add implements Operator {
 
         @Override
         public int numArgs() {
@@ -45,12 +42,10 @@ public class PostfixCalculator {
 
         @Override
         public double eval(List<Double> args) {
-//            double a = PostfixCalculator.operandStack.pop();
-//            double b = PostfixCalculator.operandStack.pop();
-            return 0;
+            return (args.get(0) + args.get(1));
         }
     }
-    public static class Subtract implements Operator {
+    public class Subtract implements Operator {
 
         @Override
         public int numArgs() {
@@ -59,10 +54,10 @@ public class PostfixCalculator {
 
         @Override
         public double eval(List<Double> args) {
-            return 0;
+            return (args.get(1) - args.get(0));
         }
     }
-    public static class Multiply implements Operator {
+    public class Multiply implements Operator {
 
         @Override
         public int numArgs() {
@@ -71,10 +66,10 @@ public class PostfixCalculator {
 
         @Override
         public double eval(List<Double> args) {
-            return 0;
+            return (args.get(0) * args.get(1));
         }
     }
-    public static class Divide implements Operator {
+    public class Divide implements Operator {
 
         @Override
         public int numArgs() {
@@ -83,10 +78,10 @@ public class PostfixCalculator {
 
         @Override
         public double eval(List<Double> args) {
-            return 0;
+            return (args.get(1) / args.get(0));
         }
     }
-    public static class Print implements Operator {
+    public class Print implements Operator {
 
         @Override
         public int numArgs() {
@@ -95,7 +90,8 @@ public class PostfixCalculator {
 
         @Override
         public double eval(List<Double> args) {
-            return 0;
+            System.out.println(args.get(args.size() - 1));
+            return args.get(args.size() - 1);
         }
     }
 }
